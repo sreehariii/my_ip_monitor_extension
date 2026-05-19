@@ -15,7 +15,7 @@ A minimal Chrome extension that monitors your public IP address and alerts you i
 When your IP changes, a popup window appears:
 
 <img width="526" height="392" alt="Screenshot 2026-05-19 at 21 53 17" src="https://github.com/user-attachments/assets/7c36b6ba-4e6e-4e56-b098-ca748f51636a" />
-<img width="349" height="489" alt="Screenshot 2026-05-19 at 21 58 38" src="https://github.com/user-attachments/assets/54acfa87-944d-4571-b76b-fb8cb50058e4" />
+<img width="349" height="489" alt="Screenshot 2026-05-19 at 22 05 33" src="https://github.com/user-attachments/assets/c273515e-6c73-4f64-902a-877831020ab6" />
 
 ```
 ⚠️  Your IP Address Changed!
