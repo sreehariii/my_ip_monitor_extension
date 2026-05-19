@@ -4,7 +4,7 @@ A minimal Chrome extension that monitors your public IP address and alerts you i
 
 ## Features
 
-- **Real-time monitoring** — checks your IP every minute (configurable)
+- **Real-time monitoring** — checks your IP every 10 minutes (configurable)
 - **Popup alert window** — impossible-to-miss alert with old/new IP comparison
 - **Desktop notification** — Chrome notification as a secondary alert
 - **Beautiful dark UI** — glassmorphism popup with IP history
@@ -33,7 +33,7 @@ When your IP changes, a popup window appears:
 ## How It Works
 
 - Uses [secopstools.org/api/myip](https://secopstools.org/api/myip) to fetch your public IP
-- Background service worker polls every 1 minute
+- Background service worker polls every 10 minutes
 - On IP change: opens a styled popup window + sends a Chrome notification
 - Click the toolbar icon to see your current IP and change history
 
@@ -42,7 +42,7 @@ When your IP changes, a popup window appears:
 Edit `background.js` to change the check interval:
 
 ```js
-const CHECK_INTERVAL_MINUTES = 1; // minimum is 1 for Chrome alarms
+const CHECK_INTERVAL_MINUTES = 10; // minimum is 1 for Chrome alarms
 ```
 
 ## Files

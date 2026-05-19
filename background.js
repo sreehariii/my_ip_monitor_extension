@@ -1,9 +1,25 @@
-const CHECK_INTERVAL_MINUTES = 10;
+const DEFAULT_INTERVAL = 10;
 const API_URL = "https://secopstools.org/api/myip";
 
-chrome.runtime.onInstalled.addListener(() => {
-  chrome.alarms.create("checkIP", { periodInMinutes: CHECK_INTERVAL_MINUTES });
+chrome.runtime.onInstalled.addListener(async () => {
+  const { interval } = await chrome.storage.local.get("interval");
+  const minutes = interval || DEFAULT_INTERVAL;
+  chrome.alarms.create("checkIP", { periodInMinutes: minutes });
   checkIP();
+});
+
+// Listen for interval changes from popup
+chrome.runtime.onMessage.addListener((message) => {
+  if (message.action === "updateInterval" && message.minutes >= 1) {
+    chrome.alarms.clear("checkIP", () => {
+      chrome.alarms.create("checkIP", { periodInMinutes: message.minutes });
+    });
+    chrome.storage.local.set({ interval: message.minutes });
+  }
+  if (message.action === "popupOpened") {
+    chrome.action.setBadgeText({ text: "" });
+    chrome.storage.local.set({ changed: false });
+  }
 });
 
 chrome.alarms.onAlarm.addListener((alarm) => {
@@ -76,10 +92,4 @@ async function checkIP() {
   }
 }
 
-// Clear badge when popup is opened
-chrome.runtime.onMessage.addListener((message) => {
-  if (message.action === "popupOpened") {
-    chrome.action.setBadgeText({ text: "" });
-    chrome.storage.local.set({ changed: false });
-  }
-});
+

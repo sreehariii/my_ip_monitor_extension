@@ -1,9 +1,26 @@
 document.addEventListener("DOMContentLoaded", () => {
   chrome.runtime.sendMessage({ action: "popupOpened" });
   loadData();
+  loadInterval();
 
   document.getElementById("refreshBtn").addEventListener("click", refreshIP);
+  document.getElementById("saveIntervalBtn").addEventListener("click", saveInterval);
 });
+
+async function loadInterval() {
+  const { interval } = await chrome.storage.local.get("interval");
+  document.getElementById("intervalInput").value = interval || 10;
+}
+
+function saveInterval() {
+  const minutes = parseInt(document.getElementById("intervalInput").value, 10);
+  if (minutes >= 1 && minutes <= 1440) {
+    chrome.runtime.sendMessage({ action: "updateInterval", minutes });
+    const btn = document.getElementById("saveIntervalBtn");
+    btn.textContent = "Saved!";
+    setTimeout(() => { btn.textContent = "Save"; }, 1500);
+  }
+}
 
 async function loadData() {
   const result = await chrome.storage.local.get(["lastIP", "lastCheck", "history", "changed"]);
