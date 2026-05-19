@@ -1,4 +1,4 @@
-const CHECK_INTERVAL_MINUTES = 1; // Set to 1 min for testing (minimum allowed by Chrome)
+const CHECK_INTERVAL_MINUTES = 10;
 const API_URL = "https://secopstools.org/api/myip";
 
 chrome.runtime.onInstalled.addListener(() => {
